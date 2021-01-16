@@ -112,9 +112,10 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function edit(Setting $setting)
+    public function edit($id)
     {
-        //
+        $single_setting = Setting::findOrFail($id);
+        return view('setting.add_edit',compact('single_setting'));
     }
 
     /**
@@ -124,9 +125,73 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request,$id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name'=>'required',
+            'logo'=>'required',
+            'address'=>'required', 
+            'phone' =>'required' ,
+            'email'=>'required', 
+             'vat'=>'required',
+        ]);
+        if ($validator->fails()) {    
+            $plainErrorText = "";
+            $errorMessage = json_decode($validator->messages(),true);
+            foreach($errorMessage as $value){
+                $plainErrorText .= $value[0].". ";
+            }
+            Session::flash('flash_message',$plainErrorText);
+            return redirect()->back()->withErrors($validator)->withInput()->with('status_color','warning');
+        }
+
+        $setting = Setting::findOrFail($id);
+        $input = $request->all();
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        $input['phone'] = $request->phone;
+        $input['address'] = $request->address;
+        $input['vat'] = $request->vat;
+
+        if ($request->file('logo') !==($setting->logo)) {
+            $image = $request->file('logo');
+        if ($image) {
+            $ext = strtolower($image->getClientOriginalExtension());
+            $imageName = uniqid().".".$ext;
+            $path = 'images/';
+            $image_url = $path.$imageName;
+            $success = $image->move($path,$imageName);
+         if ($success) {
+                $old_image = $path.$setting->logo;
+                if (file_exists($old_image)) {
+                    @unlink($old_image);
+                } 
+
+             $input['logo'] = $imageName;    
+            } 
+           
+        }
+        } else {
+            $input['logo'] = $setting->logo;
+        }
+
+        try {
+                $bug = 0;
+                $setting->update($input);
+                
+            } catch (\Exception $e) {
+                $bug = $e->errorInfo[1];
+            }
+            if ($bug==0) {
+                Session::flash('flash_message','Supplier Added Successfully.');
+                return redirect('admin/settings')->with('status_color','success');
+            } else {
+                Session::flash('flash_message','Something Error Found');
+                return redirect('admin/settings')->with('status_color','danger');
+            }
+
+
+   
     }
 
     /**

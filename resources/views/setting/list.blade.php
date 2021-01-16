@@ -42,7 +42,11 @@
 								   	  <td>{{$setting->address}}</td>
 								   	  <td>{{$setting->phone}}</td>
 								   	  <td>{{$setting->vat}}</td>
-								   	  <td></td>
+								   	  <td>
+								   	  	<a href="{{route('settings.edit',$setting->id)}}" class="btn btn-info btn-sm">
+												<i class="lnr lnr-pencil"></i>
+											</a>
+								   	  </td>
 								   </tr>
 								 @endforeach
 								</tbody>

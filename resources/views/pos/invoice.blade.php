@@ -108,7 +108,7 @@
                           </tr>
                           <tr>
                               <th><b>Total Amount</b></th>
-                              <th id="total">{{Cart::total()}}</th>
+                              <th>{{Cart::total()}}</th>
                           </tr>
                       </thead>
                   </table>
@@ -139,6 +139,8 @@
         <h4 class="modal-title text-info pull-left" id="exampleModalLabel"><b>Invoice of {{$customer->name}}</b></h4>
         <h4 class="modal-title text-info pull-right"><b>Total {{Cart::total()}}</b></h4>
       </div>
+    <form action="{{route('order.confirm')}}" method="POST">
+       @csrf 
       <div class="modal-body">
         <div class="row">
             <div class="col-md-4">
@@ -146,30 +148,37 @@
                     <label for="due">Payment</label>
                     <select name="payment_status" class="form-control">
                         <option value="">Select Payment</option>
-                        <option value="">Hand Cash</option>
-                        <option value="">Cache</option>
-                        <option value="">Due</option>
+                        <option value="Hand Cash">Hand Cash</option>
+                        <option value="Cache">Cache</option>
+                        <option value="Due">Due</option>
                     </select>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="due">Pay</label>
-                    <input type="text" class="form-control" id="pay" name="pay">
+                    <?php 
+                           $cart = Cart::total();
+                           $cart=str_replace(",","",$cart);
+                     ?>
+                    <input type="hidden" name="total" id="total" value="<?php echo round($cart); ?>">
+                    <input type="text" class="form-control" onkeyup="makeDue()" id="pay" name="pay">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="due">Due</label>
-                    <input type="text" class="form-control" id="due" name="due">
+                    <input type="text" class="form-control" onkeyup="makeDue()" id="due" name="due" value="<?php echo round($cart); ?>">
+                    <input type="hidden" name="customer_id" value="{{$customer->id}}">
                 </div>
             </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -177,13 +186,21 @@
 @endsection
 @push('scripts')
   <script >
-   $(document).ready(function(){
-        var $total = $('#total').text();
-        var $pay = 0;
-        $pay = $('#pay').val($pay);
-        var $due = ($total - $pay);
-         $('#pay').val($due);
-   });
+    function makeDue(){
+        var total = document.getElementById("total").value;
+        var pay = document.getElementById("pay").value;
+        
+        if(pay==""){
+            pay=0; 
+            document.getElementById('due').value=total; 
+        }
+        else{
+            var pay = document.getElementById('pay').value; 
+        }
+            document.getElementById('pay').value=pay;
+            var total = (total-pay);
+            document.getElementById('due').value=total;
+        }
 
   </script>
   <script>

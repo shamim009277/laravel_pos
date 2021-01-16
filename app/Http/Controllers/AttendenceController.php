@@ -140,4 +140,242 @@ class AttendenceController extends Controller
          $attendence = Attendence::where('att_date',$id)->get();
          return json_decode($attendence);
     }
+
+    public function monthlyAttendence(){
+
+        $month = date('F');
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function januaryAttendence(){
+
+        $month = "January";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function februaryAttendence(){
+
+        $month = "February";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function marchAttendence(){
+
+        $month = "March";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function aprilAttendence(){
+
+        $month = "April";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function mayAttendence(){
+
+        $month = "May";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function juneAttendence(){
+
+        $month = "June";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function julyAttendence(){
+
+        $month = "July";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function augustAttendence(){
+
+        $month = "August";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function septemberAttendence(){
+
+        $month = "September";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function octoberAttendence(){
+
+        $month = "October";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function novemberAttendence(){
+
+        $month = "November";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+    public function decemberAttendence(){
+
+        $month = "December";
+        $year = date('Y');
+        $dates = Attendence::select('date')
+               ->groupBy('date')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        $emp_ids = Attendence::select('emp_id')
+               ->groupBy('emp_id')
+               ->where('month',$month)
+               ->where('year',$year)
+               ->get();
+        //dd($date);
+        return view('attendence.monthly_attendence',compact('dates','emp_ids','month'));
+    }
+
+
+
+
 }

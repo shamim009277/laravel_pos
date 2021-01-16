@@ -67,7 +67,7 @@
 </div>
 @endsection
 @push('scripts')
-   <script>
+<script>
 	$(document).ready(function() {
          $('#example').DataTable();
     } );

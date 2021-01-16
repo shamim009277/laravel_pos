@@ -13,5 +13,9 @@ class Attendence extends Model
          'emp_id',	'date',	'year',	'status','att_date','month'
     ];
 
+    public function employee(){
+    	return $this->belongsTo('App\Employee','emp_id');
+    }
+
     
 }

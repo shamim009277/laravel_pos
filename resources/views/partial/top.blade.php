@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                         <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-                        <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                        <li><a href="{{URL::to('admin/settings')}}"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

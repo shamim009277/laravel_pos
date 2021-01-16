@@ -7,6 +7,8 @@ use App\Product;
 use App\Customer;
 use App\Category;
 use App\Setting;
+use App\Order;
+use App\OrderDetail;
 use Validator;
 use Session;
 use Response;
@@ -94,4 +96,84 @@ class PosController extends Controller
         $setting = Setting::first();
         return view('pos.invoice',compact('customer','products','setting'));
     }
+
+    public function confirmOrder(Request $request){
+    	//return $request->all();
+        $validator = Validator::make($request->all(),[
+            'payment_status'=>'required',
+            'due'=>'required|integer|min:0',
+            'pay'=>'required|integer|min:0',
+
+        ]);
+        if ($validator->fails()) {    
+            $plainErrorText = "";
+            $errorMessage = json_decode($validator->messages(),true);
+            foreach($errorMessage as $value){
+                $plainErrorText .= $value[0].". ";
+            }
+            Session::flash('flash_message',$plainErrorText);
+            return redirect()->back()->withErrors($validator)->withInput()->with('status_color','warning');
+        }
+
+        try {
+        	$bug=0;
+
+            $data = array();
+	        $data['customer_id'] = $request->customer_id;
+	        $data['order_date'] = date("d/m/yy");
+	        $data['order_status'] = "Pending";
+	        $data['total_qty'] = Cart::count();
+	        $data['sub_total'] = Cart::subtotal();
+	        $data['vat'] = Cart::tax();
+	        $data['total'] = $request->total;
+	        $data['payment_status'] = $request->payment_status;
+	        $data['pay'] = $request->pay;
+	        $data['due'] = $request->due;
+
+	        $order_id = Order::create($data)->id;
+
+	        if ($order_id) {
+	        	
+             $cartItem = Cart::content();
+	         $productItem =Product::all();
+	         $input = array();
+	         foreach ($cartItem as $cart) {
+	         	$input['order_id']   =$order_id;
+	         	$input['product_id'] =$cart->id;
+	         	$input['quantity']   =$cart->qty;
+	         	$input['unit_price'] =$cart->price;
+	         	$input['total_price']=$cart->subtotal;
+	         	foreach ($productItem as $product) {
+	         		if ($cart->id==$product->id) {
+	         			   $ravinue=(($product->selling_price)*($cart->qty))-(($product->buying_price)*($cart->qty));
+	         			$input['revinue']=$ravinue;   
+	         		} 
+	         	}
+	         	$details = OrderDetail::create($input);
+	           }
+	           if ($details) {
+	           	Cart::destroy();
+	           	Session::forget('customer_id');
+	           } 
+	           
+	        } 
+	
+        } catch (\Exception $e) {
+        	$but = $e->errorInfo[1];
+        }
+
+        if ($bug==0) {
+                Session::flash('flash_message','Order Completed Successfully.');
+                return redirect('admin/pos')->with('status_color','success');
+            } else {
+                Session::flash('flash_message','Something Error Found');
+                return redirect('admin/pos')->with('status_color','danger');
+            }
+       
+    }    
+
+
+
+        
+         
 }

@@ -30,6 +30,7 @@
                         <ul class="nav">
                             <li><a href="{{route('attendence.take')}}" class="">Take Attendence</a></li>
                             <li><a href="{{route('attendence.all')}}" class="">All Attendence</a></li>
+                            <li><a href="{{route('month.attendence')}}" class="">Monthly Attendence</a></li>
                         </ul>
                     </div>
                 </li>
@@ -78,7 +79,7 @@
 
                 @php $settings = 'admin/settings*'; @endphp
                 <li>
-                    <a href="{{URL::to('admin/settings')}}" class="{{request()->is($settings)?'active':''}}"><i class="lnr lnr-user"></i> <span>Settings</span></a>
+                    <a href="{{URL::to('admin/settings')}}" class="{{request()->is($settings)?'active':''}}"><i class="lnr lnr-cog"></i> <span>Settings</span></a>
                 </li>
 
                 

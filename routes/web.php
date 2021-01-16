@@ -74,6 +74,22 @@ Route::post('/attendence/take','AttendenceController@storeAttendence')->name('at
 Route::get('/all_attendence','AttendenceController@allAttendence')->name('attendence.all');
 Route::get('/edit_attendence/{data}','AttendenceController@editAttendence')->name('edit.attendence');
 Route::post('/update_attendence/{data}','AttendenceController@updateAttendence')->name('update.attendence');
+Route::get('/monthly_attendence','AttendenceController@monthlyAttendence')->name('month.attendence');
+
+//Monthly Attendence
+
+Route::get('attendence/january_expense','AttendenceController@januaryAttendence')->name('attendence.january');
+Route::get('attendence/february_expense','AttendenceController@februaryAttendence')->name('attendence.february');
+Route::get('attendence/march_expense','AttendenceController@marchAttendence')->name('attendence.march');
+Route::get('attendence/april_expense','AttendenceController@aprilAttendence')->name('attendence.april');
+Route::get('attendence/may_expense','AttendenceController@mayAttendence')->name('attendence.may');
+Route::get('attendence/june_expense','AttendenceController@juneAttendence')->name('attendence.june');
+Route::get('attendence/july_expense','AttendenceController@julyAttendence')->name('attendence.july');
+Route::get('attendence/august_expense','AttendenceController@augustAttendence')->name('attendence.august');
+Route::get('attendence/september_expense','AttendenceController@septemberAttendence')->name('attendence.september');
+Route::get('attendence/october_expense','AttendenceController@octoberAttendence')->name('attendence.october');
+Route::get('attendence/november_expense','AttendenceControllernovemberhAttendence')->name('attendence.november');
+Route::get('attendence/december_expense','AttendenceController@decemberAttendence')->name('attendence.december');
 
 //POS
 Route::get('/pos','PosController@index')->name('pos');
@@ -83,4 +99,7 @@ Route::get('/remove_cart/{id}','PosController@removeCart')->name('remove.cart');
 
 Route::post('/invoice','PosController@createInvoice')->name('create.invoice');
 Route::get('/create_invoice','PosController@showInvoice');
+Route::post('/confirm_order','PosController@confirmOrder')->name('order.confirm');
 });
+
+

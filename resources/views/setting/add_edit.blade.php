@@ -33,11 +33,11 @@
 								<div class="col-md-10 mx-auto" style="float:none;margin:auto;">
 		@if(!empty($single_setting))
 		 {!! Form::open(array('route'=>['settings.update',$single_setting->id],'method'=>'PUT','files'=>true)) !!}
-           @php  $btn = "Update Employee"; @endphp
+           @php  $btn = "Update Setting"; @endphp
 		@else
 								  
          {!! Form::open(array('route'=>['settings.store'],'method'=>'POST','files'=>true))!!} 
-                @php  $btn = "Submit"; @endphp
+                @php  $btn = "Add Setting"; @endphp
         @endif          
 									<div class="form-group">
 									    <label for="name">Set Company Name</label>
@@ -57,7 +57,7 @@
 									</div>
 									<div class="form-group">
 									    <label for="address">Set VAT(%)</label>
-									    <input type="text" class="form-control" id="vat" name="vat" placeholder="eg. 7%" required value="{!! isset($vat)?$vat->address:old('vat') !!}">
+									    <input type="text" class="form-control" id="vat" name="vat" placeholder="eg. 7%" required value="{!! isset($single_setting)?$single_setting->vat:old('vat') !!}">
 									</div>
 								
 
@@ -65,7 +65,7 @@
 									<div class="form-group">
 		                              <label for="logo">Old Logo</label>
 		                        
-		                                <img src="{{ asset('images/supplier/' . $single_setting->logo) }}" style="width:120px"> 
+		                                <img src="{{ asset('images/' . $single_setting->logo) }}" style="width:120px"> 
 		                              
 		                            </div>
 
