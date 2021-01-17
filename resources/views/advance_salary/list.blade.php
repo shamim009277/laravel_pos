@@ -23,14 +23,31 @@
 									<tr>
 										<th>#</th>
 										<th>Name</th>
-										<th>Phone</th>
-										<th>Address</th>
-										<th>Photo</th>
+										<th>Salary Month</th>
+										<th>Year</th>
+										<th>Amount</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-								
+								  @php $n=0; @endphp
+								  @foreach($advances as $advance)
+								    <tr>
+								    	<td><?php echo ++$n; ?></td>
+								    	<td>{{$advance->employee->name}}</td>
+								    	<td>{{$advance->month}}</td>
+								    	<td>{{$advance->year}}</td>
+								    	<td>{{$advance->advance_salary}}</td>
+								    	<td>
+								    		<a href="{{route('advance_salary.edit',$advance->id)}}" class="btn btn-info btn-sm">
+												<i class="lnr lnr-pencil"></i>
+											</a>
+											<a href="" class="btn btn-danger btn-sm">
+												<i class="lnr lnr-trash"></i>
+											</a>
+								    	</td>
+								    </tr>
+								  @endforeach
 								</tbody>
 							</table>
 							

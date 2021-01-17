@@ -88,7 +88,7 @@ Route::get('attendence/july_expense','AttendenceController@julyAttendence')->nam
 Route::get('attendence/august_expense','AttendenceController@augustAttendence')->name('attendence.august');
 Route::get('attendence/september_expense','AttendenceController@septemberAttendence')->name('attendence.september');
 Route::get('attendence/october_expense','AttendenceController@octoberAttendence')->name('attendence.october');
-Route::get('attendence/november_expense','AttendenceControllernovemberhAttendence')->name('attendence.november');
+Route::get('attendence/november_expense','AttendenceController@novemberAttendence')->name('attendence.november');
 Route::get('attendence/december_expense','AttendenceController@decemberAttendence')->name('attendence.december');
 
 //POS
@@ -100,6 +100,16 @@ Route::get('/remove_cart/{id}','PosController@removeCart')->name('remove.cart');
 Route::post('/invoice','PosController@createInvoice')->name('create.invoice');
 Route::get('/create_invoice','PosController@showInvoice');
 Route::post('/confirm_order','PosController@confirmOrder')->name('order.confirm');
+
+//Salary 
+Route::get('/salary','SalaryController@index')->name('employee.salary');
+Route::get('/salary_pay/{id}','SalaryController@showSalary')->name('pay.salary');
+
+
+
 });
+
+
+
 
 

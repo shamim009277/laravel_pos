@@ -40,7 +40,7 @@
                     <div id="salary" class="collapse ">
                         <ul class="nav">
                             <li><a href="{{URL::to('admin/advance_salary')}}" class="">Advanced Salary</a></li>
-                            <li><a href="page-login.html" class="">Salary</a></li>
+                            <li><a href="{{route('employee.salary')}}" class="">Salary</a></li>
                         </ul>
                     </div>
                 </li>
