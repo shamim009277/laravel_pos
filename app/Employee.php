@@ -20,5 +20,9 @@ class Employee extends Model
     public function attendence(){
     	return $this->hasOne('App\Attendence');
     }
+
+    public function salary(){
+        return $this->hasOne('App\Salary');
+    }
     
 }

@@ -18,18 +18,13 @@
 						</div>
 						</br>
 						<div class="panel-heading">
-					       <a href="{{route('attendence.january')}}" class="btn btn-dark btn-sm">January</a>
-					       <a href="{{route('attendence.february')}}" class="btn btn-primary btn-sm">February</a>
-					       <a href="{{route('attendence.march')}}" class="btn btn-success btn-sm">March</a>
-					       <a href="{{route('attendence.april')}}" class="btn btn-danger btn-sm">April</a>
-					       <a href="{{route('attendence.may')}}" class="btn btn-warning btn-sm">May</a>
-					       <a href="{{route('attendence.june')}}" class="btn btn-light btn-sm">June</a>
-					       <a href="{{route('attendence.july')}}" class="btn btn-warning btn-sm">July</a>
-					       <a href="{{route('attendence.august')}}" class="btn btn-info btn-sm">August</a>
-					       <a href="{{route('attendence.september')}}" class="btn btn-success btn-sm">September</a>
-					       <a href="{{route('attendence.october')}}" class="btn btn-danger btn-sm">October</a>
-						   <a href="{{route('attendence.november')}}" class="btn btn-info btn-sm">November</a>
-						   <a href="{{route('attendence.december')}}" class="btn btn-warning btn-sm">December</a>
+						@foreach($get_months as $key=>$value)
+						  @if($key%2==0)	
+					       <a href="{{route('month.attendence')}}?month={{$value->month}}" class="btn btn-warning btn-sm">{{$value->month}}</a>
+					      @else
+					        <a href="{{route('month.attendence')}}?month={{$value->month}}" class="btn btn-danger btn-sm">{{$value->month}}</a>
+					      @endif
+					    @endforeach   
 						</div>
 					    
 

@@ -1,6 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
+    <?php 
+          $messages = DB::table('settings')->first();
+     ?>
     <div class="brand">
-        <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+        <a href="{{route('home')}}"><img src="{{asset('images/'.$messages->logo)}}" alt="" class="pull-left" style="width:30px;height:30px;"></a>
+        <h5 class="pull-right" style="margin-left: 20px;font-weight: bold;font-family: revert;color: goldenrod;text-transform: uppercase;">{{$messages->name}}</h5>
     </div>
     <div class="container-fluid">
         <div class="navbar-btn">

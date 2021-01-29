@@ -51,22 +51,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 Route::get('/expense/today_expense/','ExpenseController@todayExpense')->name('expense.today');
 Route::get('/expense/monthly_expense/','ExpenseController@monthlyExpense')->name('expense.monthly');
 
-
-//Monthly expense
-
-Route::get('/expense/january_expense/','ExpenseController@expenseJanuary')->name('expense.january');
-Route::get('/expense/february_expense/','ExpenseController@expenseFebruary')->name('expense.february');
-Route::get('/expense/march_expense/','ExpenseController@expenseMarch')->name('expense.march');
-Route::get('/expense/april_expense/','ExpenseController@expenseApril')->name('expense.april');
-Route::get('/expense/may_expense/','ExpenseController@expenseMay')->name('expense.may');
-Route::get('/expense/june_expense/','ExpenseController@expenseJune')->name('expense.june');
-Route::get('/expense/july_expense/','ExpenseController@expenseJuly')->name('expense.july');
-Route::get('/expense/august_expense/','ExpenseController@expenseAugust')->name('expense.august');
-Route::get('/expense/september_expense/','ExpenseController@expenseSeptember')->name('expense.september');
-Route::get('/expense/october_expense/','ExpenseController@expenseOctober')->name('expense.october');
-Route::get('/expense/november_expense/','ExpenseController@expenseNovember')->name('expense.november');
-Route::get('/expense/december_expense/','ExpenseController@expenseDecember')->name('expense.december');
-
 //Attendence 
 
 Route::get('/attendence','AttendenceController@takeAttendence')->name('attendence.take');
@@ -76,20 +60,7 @@ Route::get('/edit_attendence/{data}','AttendenceController@editAttendence')->nam
 Route::post('/update_attendence/{data}','AttendenceController@updateAttendence')->name('update.attendence');
 Route::get('/monthly_attendence','AttendenceController@monthlyAttendence')->name('month.attendence');
 
-//Monthly Attendence
 
-Route::get('attendence/january_expense','AttendenceController@januaryAttendence')->name('attendence.january');
-Route::get('attendence/february_expense','AttendenceController@februaryAttendence')->name('attendence.february');
-Route::get('attendence/march_expense','AttendenceController@marchAttendence')->name('attendence.march');
-Route::get('attendence/april_expense','AttendenceController@aprilAttendence')->name('attendence.april');
-Route::get('attendence/may_expense','AttendenceController@mayAttendence')->name('attendence.may');
-Route::get('attendence/june_expense','AttendenceController@juneAttendence')->name('attendence.june');
-Route::get('attendence/july_expense','AttendenceController@julyAttendence')->name('attendence.july');
-Route::get('attendence/august_expense','AttendenceController@augustAttendence')->name('attendence.august');
-Route::get('attendence/september_expense','AttendenceController@septemberAttendence')->name('attendence.september');
-Route::get('attendence/october_expense','AttendenceController@octoberAttendence')->name('attendence.october');
-Route::get('attendence/november_expense','AttendenceController@novemberAttendence')->name('attendence.november');
-Route::get('attendence/december_expense','AttendenceController@decemberAttendence')->name('attendence.december');
 
 //POS
 Route::get('/pos','PosController@index')->name('pos');
@@ -104,6 +75,8 @@ Route::post('/confirm_order','PosController@confirmOrder')->name('order.confirm'
 //Salary 
 Route::get('/salary','SalaryController@index')->name('employee.salary');
 Route::get('/salary_pay/{id}','SalaryController@showSalary')->name('pay.salary');
+Route::post('/salary_paid','SalaryController@storeSalary')->name('salary.store');
+Route::get('/salary/paid_list','SalaryController@paidList')->name('paid.list');
 
 
 

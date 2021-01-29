@@ -122,84 +122,19 @@ class ExpenseController extends Controller
 
     }
 
-    public function monthlyExpense(){
-        $month = date("F");
+    public function monthlyExpense(Request $request){
+
+        $month =$request->get('month');
+        if ($month) {
+                $month =$request->get('month');
+             } else {
+                $month = date("F");
+             }
+        $get_months = Expense::select('month')->distinct()->get();
         $expenses = Expense::where('month',$month)->get();
         $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month')); 
+        return view('expense.monthly_expense',compact('expenses','total','month','get_months')); 
     }
 
-    public function expenseJanuary(){
-        $month = "January";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseFebruary(){
-        $month = "February";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseMarch(){
-        $month = "March";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseApril(){
-        $month = "April";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseMay(){
-        $month = "May";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
     
-    public function expenseJune(){
-        $month = "June";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseJuly(){
-        $month = "July";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseAugust(){
-        $month = "August";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseSeptember(){
-        $month = "September";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseOctober(){
-        $month = "October";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseNovember(){
-        $month = "November";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
-    public function expenseDecember(){
-        $month = "December";
-        $expenses = Expense::where('month',$month)->get();
-        $total = Expense::where('month',$month)->get()->sum('amount');
-        return view('expense.monthly_expense',compact('expenses','total','month'));
-    }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Inventory | Employee Salary')
+@section('title','Inventory | Employee Salary List')
 @push('css')
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
 @endpush
@@ -12,9 +12,9 @@
                	   <div class="panel panel-headline">
 						<div class="panel-heading">
 							<h3 class="panel-title pull-left">
-								<i class="fa fa-list"></i> Employee List
+								<i class="fa fa-list"> </i> Paid Salary List
 							</h3>
-							<a href="{{route('paid.list')}}" class="btn btn-success pull-right">Paid List</a>
+							<a href="{{route('employee.salary')}}" class="btn btn-success pull-right">Pay Salary</a>
 						</div>
 					    </br>
 						<div class="panel-body">
@@ -22,29 +22,34 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Name</th>
+										<th>Employee Name</th>
 										<th>Photo</th>
-										<th>Base Salary</th>
+										<th>Address</th>
+										<th>Salary Month</th>
+										<th>Pay Amount</th>
+										<th>Pay Date</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-								 @php $n=0; @endphp
-								 @foreach($employees as $employee)
-                                    <tr>
-                                    	<td><?php echo ++$n; ?></td>
-                                    	<td>{{$employee->name}}</td>
-                                    	<td>
-                                    		<img src="{{asset('images/employee/'.$employee->photo)}}" alt="" style="width:70px;height:40px;">
-                                    	</td>
-                                    	<td>{{$employee->salary}}</td>
-                                    	@php
-                                                $id = Crypt::encrypt($employee->id);
-                                    	@endphp
-                                    	<td>
-                                    		<a href="{{route('pay.salary',$id)}}" class="btn btn-info btn-md"><i class="fa fa-money" aria-hidden="true"> </i> Pay Salary</a>
-                                    	</td>
-                                    </tr>
+								@php $n=0; @endphp
+								 @foreach($salaries as $salary)
+								   <tr>
+								   	  <td><?php echo ++$n; ?></td>
+								   	  <td>{{$salary->employee->name}}</td>
+								   	  <td>
+								   	  	<img src="{{asset('images/employee/'.$salary->employee->photo)}}" alt="Image" width="50%">
+								   	  </td>
+								   	  <td>{{$salary->employee->address}}</td>
+								   	  <td>{{$salary->month }} || {{$salary->year}}</td>
+								   	  <td>{{$salary->amount}}</td>
+								   	  <td>{{$salary->created_at}}</td>
+								   	  <td>
+								   	  	<a href="" class="btn btn-info btn-sm">
+												<i class="lnr lnr-pencil"></i>
+											</a>
+								   	  </td>
+								   </tr>
 								 @endforeach
 								</tbody>
 							</table>

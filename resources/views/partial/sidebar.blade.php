@@ -8,7 +8,7 @@
                 </li>
 
                 <li>
-                    <a href="{{route('pos')}}" class=""><i class="lnr lnr-home"></i> <span>POS</span></a>
+                    <a href="{{route('pos')}}" class=""><i class="lnr lnr-code"></i> <span>POS</span></a>
                 </li>
 
                 @php $employee = 'admin/employee*'; @endphp
@@ -17,15 +17,15 @@
                 </li>
                 @php $customer = 'admin/customer*'; @endphp
                 <li>
-                    <a href="{{URL::to('admin/customer')}}" class="{{request()->is($customer)?'active':''}}"><i class="lnr lnr-user"></i> <span>Customer</span></a>
+                    <a href="{{URL::to('admin/customer')}}" class="{{request()->is($customer)?'active':''}}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span>Customer</span></a>
                 </li>
                 @php $supplier = 'admin/supplier*'; @endphp
                 <li>
-                    <a href="{{URL::to('admin/supplier')}}" class="{{request()->is($supplier)?'active':''}}"><i class="lnr lnr-user"></i> <span>Supplier</span></a>
+                    <a href="{{URL::to('admin/supplier')}}" class="{{request()->is($supplier)?'active':''}}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span>Supplier</span></a>
                 </li>
 
                 <li>
-                    <a href="#Pages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Attendence</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <a href="#Pages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-chart-bars"></i> <span>Attendence</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="Pages" class="collapse ">
                         <ul class="nav">
                             <li><a href="{{route('attendence.take')}}" class="">Take Attendence</a></li>
@@ -36,11 +36,12 @@
                 </li>
                 
                 <li>
-                    <a href="#salary" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Salary(EMP)</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <a href="#salary" data-toggle="collapse" class="collapsed"><i class="fa fa-calendar"></i> <span>Salary(EMP)</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="salary" class="collapse ">
                         <ul class="nav">
                             <li><a href="{{URL::to('admin/advance_salary')}}" class="">Advanced Salary</a></li>
-                            <li><a href="{{route('employee.salary')}}" class="">Salary</a></li>
+                            <li><a href="{{route('employee.salary')}}" class="">Pay Salary</a></li>
+                            <li><a href="{{route('paid.list')}}" class="">Paid Salary List</a></li>
                         </ul>
                     </div>
                 </li>
@@ -57,7 +58,7 @@
                 </li>
 
                 <li>
-                    <a href="#sales" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Sales Report</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <a href="#sales" data-toggle="collapse" class="collapsed"><i class="fa fa-life-ring" aria-hidden="true"></i><span>Sales Report</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="sales" class="collapse ">
                         <ul class="nav">
                             <li><a href="" class="">Add Expense</a></li>
@@ -69,12 +70,12 @@
 
                 @php $category = 'admin/category*'; @endphp
                 <li>
-                    <a href="{{URL::to('admin/category')}}" class="{{request()->is($category)?'active':''}}"><i class="lnr lnr-user"></i> <span>Category</span></a>
+                    <a href="{{URL::to('admin/category')}}" class="{{request()->is($category)?'active':''}}"><i class="fa fa-bars" aria-hidden="true"></i><span>Category</span></a>
                 </li>
 
                 @php $products = 'admin/products*'; @endphp
                 <li>
-                    <a href="{{URL::to('admin/products')}}" class="{{request()->is($products)?'active':''}}"><i class="lnr lnr-user"></i> <span>Products</span></a>
+                    <a href="{{URL::to('admin/products')}}" class="{{request()->is($products)?'active':''}}"><i class="fa fa-bars" aria-hidden="true"></i><span>Products</span></a>
                 </li>
 
                 @php $settings = 'admin/settings*'; @endphp
