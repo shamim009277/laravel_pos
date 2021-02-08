@@ -139,7 +139,7 @@ class SalaryController extends Controller
     }
 
     public function paidList(){
-    	$salaries = Salary::orderBy('id','DESC')->get();
+    	$salaries = Salary::with('employee')->orderBy('id','DESC')->get();
     	return view('salary.paid_list',compact('salaries'));
     }
 }

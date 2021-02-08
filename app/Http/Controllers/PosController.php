@@ -16,8 +16,14 @@ use Cart;
 
 class PosController extends Controller
 {
-    public function index(){
-    	$products = Product::orderBy('id','DESC')->get();
+    public function index(Request $request){
+        if ($request->has('category')) {
+            $id = $request->get('category');
+            $products = Product::where('cat_id',$id)
+                      ->orderBy('id','DESC')->get();
+        } else {
+            $products = Product::with('category')->orderBy('id','DESC')->get();
+        }
     	$customers = Customer::orderBy('id','DESC')->get();
     	$categories = Category::orderBy('id','DESC')->get();
     	return view('pos.pos',compact('products','customers','categories'));
@@ -59,8 +65,8 @@ class PosController extends Controller
         $rowId=$id;
     	$remove = Cart::remove($rowId);
 
-    	Session::flash('flash_message','Quantity Updated Successfully.');
-                return redirect()->back()->with('status_color','success');	
+    	Session::flash('flash_message','Product Deleted Successfully.');
+                return redirect()->back()->with('status_color','error');	
     }
 
     public function createInvoice(Request $request){
@@ -130,15 +136,16 @@ class PosController extends Controller
 	        $data['pay'] = $request->pay;
 	        $data['due'] = $request->due;
 
-	        $order_id = Order::create($data)->id;
+	        $order = Order::create($data)->id;
+            //dd($order);
 
-	        if ($order_id) {
+	        if ($order) {
 	        	
              $cartItem = Cart::content();
 	         $productItem =Product::all();
 	         $input = array();
 	         foreach ($cartItem as $cart) {
-	         	$input['order_id']   =$order_id;
+	         	$input['order_id']   =$order;
 	         	$input['product_id'] =$cart->id;
 	         	$input['quantity']   =$cart->qty;
 	         	$input['unit_price'] =$cart->price;
@@ -159,7 +166,7 @@ class PosController extends Controller
 	        } 
 	
         } catch (\Exception $e) {
-        	$but = $e->errorInfo[1];
+        	return $but = $e->getMessage();
         }
 
         if ($bug==0) {

@@ -18,7 +18,7 @@ class AdvanceSalaryController extends Controller
      */
     public function index()
     {
-        $advances = AdvanceSalary::all();
+        $advances = AdvanceSalary::with('employee')->get();
         return view('advance_salary.list',compact('advances'));
     }
 

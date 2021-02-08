@@ -16,9 +16,14 @@
         
         <div class="panel-body">
             <div class="row">
-            @foreach($categories as $category)    
-                <a class="btn btn-info btn-sm">{{$category->category_name}}</a>
+            @foreach($categories as $key=>$category) 
+              @if($key%2==0)   
+                <a href="{{route('pos')}}?category={{$category->id}}" class="btn btn-info btn-sm">{{$category->category_name}}</a>
+              @else
+                <a href="{{route('pos')}}?category={{$category->id}}" class="btn btn-success btn-sm">{{$category->category_name}}</a>
+              @endif  
             @endforeach
+                <a href="{{route('pos')}}" class="btn btn-danger btn-sm">All Category</a>
             </div>
             <br>
             <br>
@@ -106,7 +111,7 @@
                         @endforeach   
                        </select>
                     </div>   
-                       <center><button type="submit" class="btn btn-warning btn-md">Create Invoice</button></center>  
+                       <center><button type="submit" class="btn btn-info btn-md">Create Invoice</button></center>  
                     </div>
                     </form>
                     </div> 
@@ -164,9 +169,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <form action="" method="get" accept-charset="utf-8">
-          
-      
+      <form action="{{route('customer.store')}}" method="POST" enctype="multipart/form-data">
       <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
@@ -249,6 +252,16 @@
     </div>
   </div>
 </div>
+<script>
+ var loadFile = function(event) {
+ var reader = new FileReader();
+ reader.onload = function(){
+ var output = document.getElementById('output');
+ output.src = reader.result;
+                             };
+reader.readAsDataURL(event.target.files[0]);
+};
+</script>
 <!--End modal-->
 @endsection
 @push('scripts')

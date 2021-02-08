@@ -43,22 +43,15 @@
 									    <label for="name">Product Name</label>
 									    	<input type="text" name="product_name" id="product_name" class="form-control" placeholder="Enter Product Name" value="{!!isset($single_product)?$single_product->product_name:old('product_name')!!}">
 									</div>
-
+                                    
 									<div class="form-group">
 										<label for="name">Category</label>
 										<select name="cat_id" id="cat_id" class="form-control">
-										@isset($single_product)
-										   <option value="{{$single_product->cat_id}}">{{$single_product->category->category_name}}</option>}
-										   @foreach($categories as $category)
-										      @if(($single_product->category->category_name)!==($category->category_name))
-											     <option value="{{$category->id}}">{{$category->category_name}}</option>
-                                               @endif
-										   @endforeach
-										@else 
-											<option value="">---Select Category---</option>
+										@if(isset($single_product))
+										   <option value="">---Select Category---</option>
 											@foreach($categories as $category)
-											<option value="{{$category->id}}">{{$category->category_name}}</option>
-											@endforeach
+											<option value="{{$category->id}}" {{ (($single_product->cat_id) == ($category->id))?'selected':''}}>{{$category->category_name}}</option>
+											@endforeach										
 										@endif	
 										</select>
 									</div>
@@ -66,18 +59,10 @@
 									<div class="form-group">
 										<label for="name">Supplier</label>
 										<select name="sup_id" id="sup_id" class="form-control">
-										@isset($single_product)
-										  <option value="{{$single_product->sup_id}}">{{$single_product->supplier->name}}</option>}
-										 
-										    @foreach($suppliers as $supplier)
-										      @if(($single_product->supplier->name)!==($supplier->name))
-												<option value="{{$supplier->id}}">{{$supplier->name}}</option>
-											  @endif	
-											@endforeach
-										@else
-											<option value="">---Select Supplier---</option>
+										@if(isset($single_product))
+										  <option value="">---Select Supplier---</option>
 											@foreach($suppliers as $supplier)
-											<option value="{{$supplier->id}}">{{$supplier->name}}</option>
+											<option value="{{$supplier->id}}" {{ (($single_product->sup_id) == ($supplier->id))?'selected':''}}>{{$supplier->name}}</option>
 											@endforeach
 										@endif	
 										</select>

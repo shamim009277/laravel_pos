@@ -61,7 +61,7 @@
                     <a href="#sales" data-toggle="collapse" class="collapsed"><i class="fa fa-life-ring" aria-hidden="true"></i><span>Sales Report</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="sales" class="collapse ">
                         <ul class="nav">
-                            <li><a href="" class="">Add Expense</a></li>
+                            <li><a href="{{route('sales.list')}}" class="">Sales List</a></li>
                             <li><a href="" class="">Today</a></li>
                             <li><a href="" class="">Monthly</a></li>
                         </ul>

@@ -42,7 +42,6 @@
                        <h5>Email: {{$setting->email}}</h5>
                    </div>
                </div>
-               
            </div>
             
            <div class="row">

@@ -60,8 +60,6 @@ Route::get('/edit_attendence/{data}','AttendenceController@editAttendence')->nam
 Route::post('/update_attendence/{data}','AttendenceController@updateAttendence')->name('update.attendence');
 Route::get('/monthly_attendence','AttendenceController@monthlyAttendence')->name('month.attendence');
 
-
-
 //POS
 Route::get('/pos','PosController@index')->name('pos');
 Route::post('/add_cart','PosController@addCard')->name('product.cart');
@@ -78,9 +76,11 @@ Route::get('/salary_pay/{id}','SalaryController@showSalary')->name('pay.salary')
 Route::post('/salary_paid','SalaryController@storeSalary')->name('salary.store');
 Route::get('/salary/paid_list','SalaryController@paidList')->name('paid.list');
 
-
+//Sales
+Route::get('/sales/list','SalesController@salesList')->name('sales.list');
 
 });
+
 
 
 

@@ -159,6 +159,7 @@ class AttendenceController extends Controller
                ->where('year',$year)
                ->get();
         $emp_ids = Attendence::select('emp_id')
+               ->with('employee')
                ->groupBy('emp_id')
                ->where('month',$month)
                ->where('year',$year)

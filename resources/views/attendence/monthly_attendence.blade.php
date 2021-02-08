@@ -27,7 +27,6 @@
 					    @endforeach   
 						</div>
 					    
-
 						<div class="panel-body" id="printTable">
 							<h4 class="text-center text-danger"><b>Attendence List: {{$month}}</b></h4>
 					        <table id="example" class="table table-striped table-bordered">
