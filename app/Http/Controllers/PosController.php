@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Product;
 use App\Customer;
 use App\Category;
@@ -22,7 +23,10 @@ class PosController extends Controller
             $products = Product::where('cat_id',$id)
                       ->orderBy('id','DESC')->get();
         } else {
-            $products = Product::with('category')->orderBy('id','DESC')->get();
+            $products = Cache('products',function(){
+               return Product::with('category','supplier')->orderBy('id','DESC')->get();
+            });
+            //$products = Product::with('category')->orderBy('id','DESC')->get();
         }
     	$customers = Customer::orderBy('id','DESC')->get();
     	$categories = Category::orderBy('id','DESC')->get();

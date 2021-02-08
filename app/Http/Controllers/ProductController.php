@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Product;
 use App\Category;
 use App\Supplier;
-use Illuminate\Http\Request;
 use Response;
 use Session;
 use Validator;
@@ -19,7 +21,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category','supplier')->orderBy('id','DESC')->get();
+        $products = Cache('products',function(){
+            return Product::with('category','supplier')->orderBy('id','DESC')->get();
+        });
+        //$products = Product::with('category','supplier')->orderBy('id','DESC')->get();
         return view('products.list',compact('products'));
     }
 

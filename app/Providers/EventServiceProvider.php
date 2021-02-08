@@ -4,10 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
 use App\Events\OrderConfirm;
+use App\Events\ProductCreated;
+use App\Events\ProductUpdated;
+use App\Events\ProductDeleted;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\OrderConfirmListener;
+use App\Listeners\ProductCacheListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,16 @@ class EventServiceProvider extends ServiceProvider
         OrderConfirm::class => [
             OrderConfirmListener::class,
         ],
+        ProductCreated::class => [
+            ProductCacheListener::class,
+        ],
+        ProductUpdated::class => [
+            ProductCacheListener::class,
+        ],
+        ProductDeleted::class => [
+            ProductCacheListener::class,
+        ],
+        
     ];
 
     /**

@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\ProductCreated;
+use App\Events\ProductUpdated;
+use App\Events\ProductDeleted;
 
 class Product extends Model
 {
@@ -11,6 +14,12 @@ class Product extends Model
     protected $fillable = [
         'product_name','cat_id','sup_id','product_code','product_garage','product_image',	
         'buy_date',	'expire_date','buying_price','selling_price',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ProductCreated::class,
+        'updated' => ProductUpdated::class,
+        'deleted' => ProductDeleted::class,
     ];
 
     public function category(){
