@@ -27,7 +27,7 @@
 					    @endforeach   
 						</div>
 					    
-						<div class="panel-body" id="printTable">
+						<div class="panel-body" id="printAble">
 							<h4 class="text-center text-danger"><b>Attendence List: {{$month}}</b></h4>
 					        <table id="example" class="table table-striped table-bordered">
 								<thead>
@@ -55,31 +55,30 @@
 									@endforeach
 								</tbody>
 							</table>
-								
 						</div>
-						<button type="button" id="print" class="btn btn-primary pull-right">Print</button>
+						
 					</div>
                </div>
+            </div>
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="panel panel-info">
+					  <div class="panel-body">
+					  	<button type="button" id="print-element" class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i></button>
+					  </div>
+					</div>
+            	</div>
             </div>        
         </div>
     </div>         
 </div>
 @endsection
 @push('scripts')
-   
-<script>
-function printData()
-{
-   var divToPrint=document.getElementById("printTable");
-   newWin= window.open("");
-   newWin.document.write(divToPrint.innerHTML);
-   newWin.print();
-   newWin.close();
-}
-
-$('#print').on('click',function(){
-     printData();
-})
+<script src="{{asset('assets/js/printThis.js')}}"></script>   
+<script type="text/javascript">
+  $( "#print-element" ).click(function() {
+       $("#printAble").printThis();
+    });
 </script>
 <script>
 	$(document).ready(function() {

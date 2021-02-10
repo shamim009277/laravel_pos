@@ -35,7 +35,7 @@
 								   
 								   @foreach($orders as $order)
 								    <tr>
-								    	<td>{{$order->id}}</td>
+								    	<td class="id">{{$order->id}}</td>
 								    	<td>{{$order->customer->name}}</td>
 								    	<td>{{$order->order_date}}</td>
 								    	<td>{{$order->total}}</td>
@@ -45,9 +45,9 @@
 								    	<?php $due= $order->due;?>
 								    	<td>
 								    		@if($due==0)
-								    		   <span class="label label-primary">CLEAR</span>
+								    		   <button class="btn btn-success btn-sm" disabled>CLEAR</button>
 								    		@else
-								    		   <span class="label label-primary">PAY DUE</span>
+								    		   <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dueModal" onclick="change(this)">PAY DUE</button>
 								    		@endif
 								    	</td>
 								    	<td>
@@ -62,7 +62,6 @@
 								   @endforeach
 								</tbody>
 							</table>
-							
 						</div>
 					</div>
                </div>
@@ -70,9 +69,47 @@
         </div>
     </div>         
 </div>
+
+
+
+
+<!-- Pay Due Modal -->
+<div class="modal fade" id="dueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body"> 
+      <form action="{{route('due.collect')}}" method="POST" accept-charset="utf-8">
+       @csrf
+      <h4 class="modal-title text-center" id="exampleModalLabel"><b>Pay Due Amount</b></h4> 
+         <div class="row">
+         	<div class="col-md-12">
+         		<div class="form-group">
+                    <label for="due">Pay Amount</label>
+                    <input type="hidden" name="order_id" id="order_id">
+                    <input type="text" class="form-control" id="due" name="due" placeholder="Insert Pay Amount" required>
+                </div>
+         	</div>
+         </div>
+         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-sm pull-right">Pay Due</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--End Pay Due Modal -->
+
+
 @endsection
 @push('scripts')
-  <script>
+<script>
+function change(e){
+   var prenom =$(e).closest('tr').find('.id').text();
+   document.getElementById('order_id').value=prenom; 
+}    
+</script>
+<script>
 	$(document).ready(function() {
          $('#example').DataTable();
     } );

@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//Auth::routes(['login'=>false]);
 Auth::routes(['verify'=>true]);
+
 
 //Google Login(console.developers.google.com)
 Route::get('/google', 'Auth\GoogleController@redirectToGoogle')->name('google.login');
@@ -69,6 +70,7 @@ Route::get('/remove_cart/{id}','PosController@removeCart')->name('remove.cart');
 Route::post('/invoice','PosController@createInvoice')->name('create.invoice');
 Route::get('/create_invoice','PosController@showInvoice');
 Route::post('/confirm_order','PosController@confirmOrder')->name('order.confirm');
+Route::post('/collect/due','PosController@getDuePayment')->name('due.collect');
 
 //Salary 
 Route::get('/salary','SalaryController@index')->name('employee.salary');

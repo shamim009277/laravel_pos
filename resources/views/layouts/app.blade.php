@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/chartist/css/chartist-custom.css')}}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
     <!--Toaster Message CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
@@ -47,6 +48,7 @@
     </div>
     <!-- END WRAPPER -->
     <!-- Javascript -->
+    
     <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
@@ -54,6 +56,8 @@
     <script src="{{asset('assets/vendor/chartist/js/chartist.min.js')}}"></script>
     <script src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
 
     <script>
         @if(Session::has('flash_message'))
@@ -70,6 +74,12 @@
                 toastr.error("{{Session::get('flash_message')}}");
              }
         @endif
+    </script>
+    <script src="{{asset('assets/js/printThis.js')}}"></script>   
+    <script type="text/javascript">
+      $( "#print-element" ).click(function() {
+           $("#printAble").printThis();
+        });
     </script>
     @stack('scripts')
 </body>

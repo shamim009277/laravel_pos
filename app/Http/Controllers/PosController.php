@@ -181,10 +181,56 @@ class PosController extends Controller
                 return redirect('admin/pos')->with('status_color','danger');
             }
        
-    }    
+    } 
 
+    public function getDuePayment(Request $request){
+       
+       $validator = Validator::make($request->all(),[
+            'due'=>'required|regex:/^[1-9][0-9]+/|not_in:0',
+        ],$messages=[
 
+            'due.required' => 'Please insert a valid number',
+        ]);
+        if ($validator->fails()) {    
+            $plainErrorText = "";
+            $errorMessage = json_decode($validator->messages(),true);
+            foreach($errorMessage as $value){
+                $plainErrorText .= $value[0].". ";
+            }
+            Session::flash('flash_message',$plainErrorText);
+            return redirect()->back()->withErrors($validator)->withInput()->with('status_color','warning');
+        }
 
-        
+           $id = $request->order_id;
+           $predue = $request->due;
+           $order = Order::findOrFail($id);
+           $pay = ($order->pay+$predue);
+           $due = ($order->due-$predue);
+
+        if ($predue>$due) {
+            Session::flash('flash_message','Please insert a valid payment value');
+            return redirect()->back()->withErrors($validator)->withInput()->with('status_color','warning');
+        } else {
+            try {
+                $bug=0;
+                $update = Order::where('id',$id)->update([
+                    "pay" => $pay,
+                    "due" => $due
+                 ]);
+                
+            } catch (\Exception $e) {
+                $bug = $e->errorInfo[1];
+            }
+            if ($bug==0) {
+                Session::flash('flash_message','Due Payment Collect Successfully');
+                return redirect()->back()->with('status_color','success');
+            } else {
+                Session::flash('flash_message','Something Error Found');
+                return redirect()->back()->with('status_color','danger');
+            }
+        } 
+       
+    }   
+
          
 }

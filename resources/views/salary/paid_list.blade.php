@@ -1,15 +1,12 @@
 @extends('layouts.app')
 @section('title','Inventory | Employee Salary List')
-@push('css')
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
-@endpush
 @section('content')
 <div class="main">           
     <div class="main-content">
         <div class="container-fluid">
             <div class="row">
                <div class="col-md-12">
-               	   <div class="panel panel-headline">
+               	   <div class="panel panel-headline" id="printAble">
 						<div class="panel-heading">
 							<h3 class="panel-title pull-left">
 								<i class="fa fa-list"> </i> Paid Salary List
@@ -57,6 +54,15 @@
 						</div>
 					</div>
                </div>
+            </div>
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="panel panel-info">
+					  <div class="panel-body">
+					  	<button type="button" id="print-element" class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i></button>
+					  </div>
+					</div>
+            	</div>
             </div>        
         </div>
     </div>         
@@ -68,6 +74,4 @@
          $('#example').DataTable();
     } );
 </script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
 @endpush
