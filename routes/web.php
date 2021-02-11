@@ -80,6 +80,8 @@ Route::get('/salary/paid_list','SalaryController@paidList')->name('paid.list');
 
 //Sales
 Route::get('/sales/list','SalesController@salesList')->name('sales.list');
+Route::get('/sales/monthly/report','SalesController@monthlyReport')->name('monthly.report');
+Route::get('/sales/today/report','SalesController@dailyReport')->name('today.report');
 
 });
 

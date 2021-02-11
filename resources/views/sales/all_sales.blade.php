@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Inventory | Product Category')
+@section('title','Inventory | Sales List')
 @push('css')
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
 @endpush
@@ -104,10 +104,11 @@
 @endsection
 @push('scripts')
 <script>
-function change(e){
-   var prenom =$(e).closest('tr').find('.id').text();
-   document.getElementById('order_id').value=prenom; 
-}    
+  function change(e){
+  	e.preventDefault();
+   var id =$(e).closest('tr').find('.id').text();
+   document.getElementById('order_id').value=id; 
+}  
 </script>
 <script>
 	$(document).ready(function() {
