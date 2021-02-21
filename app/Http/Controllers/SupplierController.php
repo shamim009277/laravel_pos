@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use Illuminate\Http\Request;
-use Validator;
-Use Session;
+use Illuminate\Support\Facades\Crypt;
 use Response;
+use Validator;
 
 class SupplierController extends Controller
 {
@@ -144,9 +144,10 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request,$id)
     {
-        //
+        $id = \Crypt::decrypt($id);
+        return $request->all();
     }
 
     /**
@@ -155,8 +156,17 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy( $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        $path = 'images/supplier/';
+        $old_image = $path.$supplier->photo;
+        if (file_exists($old_image)) {
+            @unlink($old_image);
+        }
+        $supplier->delete();
+        Session::flash('flash_message','Supplier Deleted Successfully');
+                return redirect()->back()->with('status_color','danger'); 
+        
     }
 }

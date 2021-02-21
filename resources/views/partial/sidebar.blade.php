@@ -70,14 +70,16 @@
                 </li>
                 @php
                      $list = 'admin/sales/list';
+                     $today = 'admin/sales/today/report';
+                     $month = 'admin/sales/monthly/report';
                 @endphp
                 <li>
-                    <a href="#sales" data-toggle="collapse" class="collapsed" aria-expanded><i class="fa fa-life-ring" aria-hidden="true"></i><span>Sales Report</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                    <div id="sales" class="collapse " aria-expanded="">
+                    <a href="#sales" data-toggle="collapse" class="{{Request::is($list)||Request::is($today)||Request::is($month)?'active':'collapsed'}}" aria-expanded="{{Request::is($list)||Request::is($today)||Request::is($month)?'true':'false'}}"><i class="fa fa-life-ring" aria-hidden="true"></i><span>Sales Report</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="sales" class="{{Request::is($list)||Request::is($today)||Request::is($month)?'collapse in':'collapse'}}" aria-expanded="{{Request::is($list)||Request::is($today)||Request::is($month)?'true':'false'}}">
                         <ul class="nav">
-                            <li><a href="{{route('sales.list')}}" class="">Manage due</a></li>
-                            <li><a href="{{route('today.report')}}" class="">Today</a></li>
-                            <li><a href="{{route('monthly.report')}}" class="">Monthly</a></li>
+                            <li><a href="{{route('sales.list')}}" class="{{Request::is($list)?'active':''}}">Manage Due</a></li>
+                            <li><a href="{{route('today.report')}}" class="{{Request::is($today)?'active':''}}">Today</a></li>
+                            <li><a href="{{route('monthly.report')}}" class="{{Request::is($month)?'active':''}}">Monthly</a></li>
                         </ul>
                     </div>
                 </li>

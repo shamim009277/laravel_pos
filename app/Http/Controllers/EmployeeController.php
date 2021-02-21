@@ -237,6 +237,14 @@ if ($bug==0) {
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $path = 'images/employee/';
+        $image = $path.$employee->photo;
+        if (file_exists($image)) {
+            @unlink($image);
+        } 
+        $employee->delete();
+        Session::flash('flash_message','Employee deleted successfully');
+                return redirect()->back()->with('status_color','success');
     }
 }

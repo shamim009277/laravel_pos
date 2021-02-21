@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Inventory | Customer')
+@section('title','Inventory | Supplier')
 @push('css')
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
 @endpush
@@ -49,9 +49,19 @@
 											<a href="{{route('supplier.edit',$id)}}" class="btn btn-info btn-sm">
 												<i class="lnr lnr-pencil"></i>
 											</a>
-											<a href="" class="btn btn-danger btn-sm">
+											<form id="delete-form-{{$supplier->id}}" action="{{route('supplier.destroy',$supplier->id)}}" method="POST" style="display:none;">
+												@csrf
+												@method('DELETE')
+											</form>
+											<button class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure you want to delete this permanently')){
+                                                  event.preventDefault();
+                                                  document.getElementById('delete-form-{{$supplier->id}}').submit();
+											}else{
+												event.preventDefault();
+											}
+											">
 												<i class="lnr lnr-trash"></i>
-											</a>
+											</button>
 										</td>
 									</tr>
 								 @endforeach

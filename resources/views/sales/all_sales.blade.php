@@ -105,7 +105,7 @@
 @push('scripts')
 <script>
   function change(e){
-  	e.preventDefault();
+  	//e.preventDefault();
    var id =$(e).closest('tr').find('.id').text();
    document.getElementById('order_id').value=id; 
 }  

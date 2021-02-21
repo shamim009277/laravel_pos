@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('title','Inventory | Products')
-@push('css')
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
-@endpush
 @section('content')
 <div class="main">           
     <div class="main-content">
@@ -59,9 +56,19 @@
 											<a href="{{route('products.edit',$id)}}" class="btn btn-info btn-sm">
 												<i class="lnr lnr-pencil"></i>
 											</a>
-											<a href="" class="btn btn-danger btn-sm">
+											<form id="delete-{{$product->id}}" action="{{route('products.destroy',$product->id)}}" method="POST" style="display:none;">
+												@csrf
+												@method('DELETE')
+											</form>
+											<button class="btn btn-danger btn-sm" onclick="if(confirm('Ate you sure tou want to delete this')){
+												event.preventDefault();
+												document.getElementById('delete-{{$product->id}}');
+											}else{
+												event.preventDefault();
+											}
+											">
 												<i class="lnr lnr-trash"></i>
-											</a>
+											</button>
 										</td>
 									</tr>
 								 @endforeach
@@ -82,6 +89,4 @@
          $('#example').DataTable();
     } );
 </script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
 @endpush

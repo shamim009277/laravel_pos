@@ -150,8 +150,22 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        try {
+                $bug = 0;
+                $category=Category::findOrFail($id);
+                $category->delete();
+                
+            } catch (\Exception $e) {
+                $bug = $e->errorInfo[1];
+            }
+            if ($bug==0) {
+                Session::flash('flash_message','Category Deleted Successfully.');
+                return redirect()->back()->with('status_color','success');
+            } else {
+                Session::flash('flash_message','Something Error Found');
+                return redirect()->back()->with('status_color','danger');
+            }
     }
 }

@@ -49,9 +49,19 @@
 											<a href="{{route('customer.edit',$id)}}" class="btn btn-info btn-sm">
 												<i class="lnr lnr-pencil"></i>
 											</a>
-											<a href="" class="btn btn-danger btn-sm">
+											<form id="delete-{{$customer->id}}" action="{{route('customer.destroy',$customer->id)}}" method="POST" style="display:none;">
+												@csrf
+												@method('DELETE')
+											</form>
+											<button class="btn btn-danger btn-sm" onclick="if(confirm('Ate you sure tou want to delete this')){
+												event.preventDefault();
+												document.getElementById('delete-{{$customer->id}}');
+											}else{
+												event.preventDefault();
+											}
+											">
 												<i class="lnr lnr-trash"></i>
-											</a>
+											</button>
 										</td>
 									</tr>
 								 @endforeach

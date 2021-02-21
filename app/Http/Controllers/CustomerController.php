@@ -154,8 +154,16 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $path = 'images/customer/';
+        $image = $path.$customer->photo;
+        if (file_exists($image)) {
+            @unlink($image);
+        } 
+        $customer->delete();
+        Session::flash('flash_message','Customer deleted successfully');
+                return redirect()->back()->with('status_color','success');
     }
 }

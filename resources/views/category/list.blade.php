@@ -41,9 +41,23 @@
 											<a href="{{route('category.edit',$id)}}" class="btn btn-info btn-sm">
 												<i class="lnr lnr-pencil"></i>
 											</a>
-											<a href="" class="btn btn-danger btn-sm">
-												<i class="lnr lnr-trash"></i>
-											</a>
+											
+											<form id="delete-form-{{$category->id}}" action="{{route('category.destroy',$category->id)}}" method="POST" style="display:none">
+						                      @csrf
+						                      @method('DELETE')
+						                      
+						                    </form>
+
+						                  	<button class="btn btn-danger btn-sm"
+						                    onclick="if(confirm('Are You Sure You Want to Delete This Permanently')){
+						                        event.preventDefault();
+						                         document.getElementById('delete-form-{{$category->id}}').submit();
+						                    }else{
+						                           event.preventDefault();
+						                    }
+						                    ">
+						                    <i class="lnr lnr-trash"></i>
+						                    </button>
 										</td>
 									</tr>
 								 @endforeach

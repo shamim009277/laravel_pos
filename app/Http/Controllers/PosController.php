@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use App\Product;
-use App\Customer;
 use App\Category;
-use App\Setting;
+use App\Customer;
 use App\Order;
 use App\OrderDetail;
-use Validator;
-use Session;
-use Response;
+use App\Product;
+use App\Setting;
+use Carbon\Carbon;
 use Cart;
+use Response;
+use Session;
+use Validator;
 
 class PosController extends Controller
 {
@@ -139,6 +141,7 @@ class PosController extends Controller
 	        $data['payment_status'] = $request->payment_status;
 	        $data['pay'] = $request->pay;
 	        $data['due'] = $request->due;
+            $data['last_pay'] = Carbon::now();
 
 	        $order = Order::create($data)->id;
             //dd($order);
@@ -184,9 +187,10 @@ class PosController extends Controller
     } 
 
     public function getDuePayment(Request $request){
+        //return $request->all();
        
        $validator = Validator::make($request->all(),[
-            'due'=>'required|regex:/^[1-9][0-9]+/|not_in:0',
+            'due'=>'required|regex:/^[1-9]+/|not_in:0',
         ],$messages=[
 
             'due.required' => 'Please insert a valid number',
@@ -206,6 +210,7 @@ class PosController extends Controller
            $order = Order::findOrFail($id);
            $pay = ($order->pay+$predue);
            $due = ($order->due-$predue);
+           $last_pay = Carbon::now();
 
         if ($predue>$due) {
             Session::flash('flash_message','Please insert a valid payment value');
@@ -215,7 +220,8 @@ class PosController extends Controller
                 $bug=0;
                 $update = Order::where('id',$id)->update([
                     "pay" => $pay,
-                    "due" => $due
+                    "due" => $due,
+                    "last_pay" => $last_pay
                  ]);
                 
             } catch (\Exception $e) {

@@ -232,8 +232,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $path = 'images/products/';
+        $image = $path.$product->product_image;
+        if (file_exists($image)) {
+            @unlink($image);
+        } 
+        $product->delete();
+        Session::flash('flash_message','Product deleted successfully');
+                return redirect()->back()->with('status_color','success');
     }
 }
