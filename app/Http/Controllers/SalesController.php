@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Order;
+use App\OrderDetail;
 
 class SalesController extends Controller
 {
@@ -43,5 +44,14 @@ class SalesController extends Controller
         $due = Order::whereDate('created_at',Carbon::today())->get()->sum('due');
         //dd($orders);
         return view('sales.today',compact('orders','total','pay','due'));
+    }
+
+    public function salesDetails(Request $request){
+        //return $request->id;
+        $details = OrderDetail::with('order','product')->where('order_id',$request->id)->get();
+        //dd($details);
+        //return $customer;
+        return json_decode($details);
+
     }
 }

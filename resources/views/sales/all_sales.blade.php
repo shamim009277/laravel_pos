@@ -51,7 +51,7 @@
 								    		@endif
 								    	</td>
 								    	<td>
-								    		<a href="" class="btn btn-info btn-sm">
+								    		<a onclick="getId(this)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
 												<i class="lnr lnr-eye"></i>
 											</a>
 											<a href="" class="btn btn-danger btn-sm">
@@ -101,13 +101,77 @@
 <!--End Pay Due Modal -->
 
 
+<!--Details Show Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" id="exampleModalLabel"><b>Sales Details</b></h4>
+        <button type="button" class="btn btn-success btn-sm pull-right" data-dismiss="modal">Close</button>
+      </div>
+      <div class="modal-body">
+      	<div id="modal_body">
+      		
+      	</div>
+           <h4>Product Details</h4>
+           <table class="table table-striped table-bordered">
+           	<thead>
+           		<tr>
+           			<th>Product Name</th>
+           			<th>Quantity</th>
+           			<th>Unit Price</th>
+           			<th>Total Price</th>
+           		</tr>
+           	</thead>
+           	<tbody id="tbody">
+           		
+           	</tbody>
+           </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Details Show Modal-->
+
+
 @endsection
 @push('scripts')
 <script>
-  function change(e){
-  	//e.preventDefault();
-   var id =$(e).closest('tr').find('.id').text();
-   document.getElementById('order_id').value=id; 
+function getId(e){
+	var id =$(e).closest('tr').find('.id').text();
+	var tbody = '';
+	var mbody = '';
+	$("#tbody").empty();
+	$("#modal_body").empty();
+	//alert(id);
+	$.ajax({
+		url : "{{route('sales.details')}}",
+		method: "GET",
+		data:{ 
+			  id:id,
+             _token:'{{ csrf_token() }}'
+         },
+        dataType: 'json',
+		success:function(data){
+          
+          console.log(data);
+          $.each(data,function(index,row){
+          	  tbody+="<tr>"+
+          	               "<td>"+row.product.product_name+"</td>"+
+          	               "<td>"+row.quantity+"</td>"+
+          	               "<td>"+row.unit_price+"</td>"+
+          	               "<td>"+row.total_price+"</td>"
+          	         +"</tr>";
+          	  //console.log(row.order.order_date); 
+          });
+          
+          $("#tbody").append(tbody);
+		}
+  	});
+}
+function change(e){
+var id =$(e).closest('tr').find('.id').text();
+document.getElementById('order_id').value=id; 
 }  
 </script>
 <script>
